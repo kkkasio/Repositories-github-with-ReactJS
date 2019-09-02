@@ -76,7 +76,7 @@ export const List = styled.ul`
   margin-top: 20px;
   list-style: none;
   border-radius: 4px;
-  padding: 10px 15px;
+  padding: 5px 15px;
   border: 1px solid #eee;
 
   li {

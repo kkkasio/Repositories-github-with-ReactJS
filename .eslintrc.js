@@ -19,6 +19,7 @@ module.exports = {
   plugins: ['react', 'prettier'],
   rules: {
     'react/no-unused-state': 0,
+    'react/static-property-placement': 0,
     'no-unused-vars': 'warn',
     'react/state-in-constructor': 0,
     'prettier/prettier': 'error',

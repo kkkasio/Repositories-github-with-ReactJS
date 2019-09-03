@@ -93,7 +93,7 @@ export default class Main extends Component {
         ) : (
           <Empty>
             <span>Nada Cadastrado</span>
-            <FaBan color="#ff0000" size={14} />
+            <FaBan color="#ff0000" size={16} />
           </Empty>
         )}
       </Container>

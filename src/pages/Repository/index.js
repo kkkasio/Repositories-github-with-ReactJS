@@ -6,7 +6,14 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Loading, Owner, IssuesList, Error } from './styles';
+import {
+  Loading,
+  Owner,
+  IssuesList,
+  Error,
+  FilterButton,
+  PaginateButton,
+} from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -40,15 +47,15 @@ export default class Repository extends Component {
         }),
       ]);
 
+      console.log(issues);
+
       this.setState({
         repository: repository.data,
         issues: issues.data,
         loading: false,
-        error: false,
       });
     } catch (error) {
       this.setState({
-        error: true,
         loading: false,
       });
     }
@@ -95,6 +102,12 @@ export default class Repository extends Component {
           <p>{repository.description}</p>
         </Owner>
 
+        <FilterButton>
+          <button type="button">All</button>
+          <button type="button">Open</button>
+          <button type="button">Closed</button>
+        </FilterButton>
+
         <IssuesList>
           {issues.map(issue => (
             <li key={String(issue.id)}>
@@ -120,6 +133,11 @@ export default class Repository extends Component {
             </li>
           ))}
         </IssuesList>
+
+        <PaginateButton>
+          <button type="button">Anterior</button>
+          <button type="button">Próxima</button>
+        </PaginateButton>
       </Container>
     );
   }

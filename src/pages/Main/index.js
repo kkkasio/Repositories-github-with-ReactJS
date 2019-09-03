@@ -27,7 +27,7 @@ export default class Main extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    const { repositories } = this.state;
+    const { repositories, newRepo } = this.state;
 
     if (prevState.repositories !== repositories) {
       localStorage.setItem('repositories', JSON.stringify(repositories));
@@ -35,7 +35,7 @@ export default class Main extends Component {
   }
 
   handleInputChange = e => {
-    this.setState({ newRepo: e.target.value });
+    this.setState({ newRepo: e.target.value, error: null });
   };
 
   handleSubmit = async e => {
@@ -45,6 +45,13 @@ export default class Main extends Component {
       this.setState({ loading: true });
 
       const { newRepo, repositories } = this.state;
+
+      if (newRepo === '') throw new Error('Digite um repositório');
+
+      repositories.find(repo => {
+        if (newRepo === repo.name) throw new Error('Repositório duplicado');
+      });
+
       const response = await api.get(`repos/${newRepo}`);
 
       const data = {
@@ -54,27 +61,26 @@ export default class Main extends Component {
       this.setState({
         repositories: [...repositories, data],
         newRepo: '',
-        loading: false,
-        error: false,
       });
 
-      toast.success('🦄 Adicionado!', {
+      toast.success('✅ Adicionado!', {
         position: 'top-right',
         autoClose: 4000,
         hideProgressBar: false,
-        closeOnClick: true,
+        closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
       });
     } catch (error) {
-      toast.error('🦄 Erro ao adicionar', {
+      toast.error(`🚫 ${error}`, {
         position: 'top-right',
         autoClose: 4000,
         hideProgressBar: false,
-        closeOnClick: true,
+        closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
       });
+
       this.setState({
         error: true,
       });
@@ -89,23 +95,11 @@ export default class Main extends Component {
     const { newRepo, repositories, loading, error } = this.state;
     return (
       <Container>
+        <ToastContainer />
         <h1>
           <FaGithubAlt />
           Repositórios
         </h1>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-        />
-        {/* Same as */}
-        <ToastContainer />
 
         <Form onSubmit={this.handleSubmit} error={error ? 1 : 0}>
           <input

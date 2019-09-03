@@ -30,6 +30,8 @@ export const Owner = styled.div`
   flex-direction: column;
   align-items: center;
 
+  border-bottom: 1px solid #eee;
+
   div {
     display: flex;
     align-items: center;
@@ -46,6 +48,11 @@ export const Owner = styled.div`
     font-size: 16px;
     text-decoration: none;
   }
+  a:hover {
+    font-size: 17px;
+    transition: font-size 1s ease;
+    -webkit-transition: font-size 1s ease;
+  }
 
   h1 {
     font-size: 24px;
@@ -57,21 +64,26 @@ export const Owner = styled.div`
     color: #666;
     font-size: 14px;
     line-height: 1.6;
+    margin-bottom: 15px;
   }
+`;
+
+export const FilterButton = styled.div`
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
 `;
 
 export const IssuesList = styled.ul`
   list-style: none;
-  padding-top: 30px;
-  margin-top: 30px;
-  border-top: 1px solid #eee;
+  padding-top: 25px;
 
   li {
     display: flex;
     padding: 15px 10px;
     border: 1px solid #eee;
     border-radius: 4px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     align-items: center;
 
     & + li {
@@ -120,6 +132,11 @@ export const IssuesList = styled.ul`
       }
     }
   }
+`;
+
+export const PaginateButton = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
 export const Error = styled.div`

@@ -9,7 +9,9 @@ const rotate = keyframes`
   }
 `;
 
-export const Form = styled.form`
+export const Form = styled.form.attrs(props => ({
+  error: props.error,
+}))`
   margin-top: 30px;
   display: flex;
   flex-direction: row;
@@ -21,6 +23,14 @@ export const Form = styled.form`
     border-radius: 4px;
     font-size: 16px;
   }
+
+  ${props =>
+    props.error &&
+    css`
+      input {
+        border: 1px solid #fb4539;
+      }
+    `}
 `;
 
 export const SubmitButton = styled.button.attrs(props => ({

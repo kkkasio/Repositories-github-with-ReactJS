@@ -187,6 +187,13 @@ export const Error = styled.div`
     display: flex;
     align-items: center;
   }
+
+  a:hover {
+    font-size: 17px;
+    transition: font-size 1s ease;
+    -webkit-transition: font-size 1s ease;
+  }
+
   p {
     margin-top: 15px;
     color: #fb4539;

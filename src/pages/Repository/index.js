@@ -29,6 +29,7 @@ export default class Repository extends Component {
     issues: [],
     loading: true,
     error: false,
+    errorMsg: '',
     filters: [
       {
         state: 'all',
@@ -71,9 +72,13 @@ export default class Repository extends Component {
       this.setState({
         repository: repository.data,
         issues: issues.data,
-        loading: false,
       });
     } catch (error) {
+      this.setState({
+        error,
+        errorMsg: error.message,
+      });
+    } finally {
       this.setState({
         loading: false,
       });
@@ -102,7 +107,7 @@ export default class Repository extends Component {
 
       this.setState({ issues: response.data });
     } catch (error) {
-      console.log(error);
+      this.setState({ error: true, errorMsg: error.message });
     }
   };
 
@@ -122,6 +127,7 @@ export default class Repository extends Component {
       issues,
       loading,
       error,
+      errorMsg,
       filters,
       filterIndex,
       page,
@@ -146,7 +152,7 @@ export default class Repository extends Component {
               <Link to="/">voltar aos repositórios</Link>
             </div>
             <p>
-              Aconteceu um erro ao carregar as informações
+              {errorMsg}
               <FaExclamationCircle size={30} color="#FB4539" />
             </p>
           </Error>

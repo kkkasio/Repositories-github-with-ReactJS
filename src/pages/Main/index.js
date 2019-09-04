@@ -50,7 +50,7 @@ export default class Main extends Component {
 
       repositories.find(repo => {
         if (newRepo === repo.name) {
-          throw new Error('Repositório duplicado');
+          throw new Error('Repositório Duplicado');
         }
       });
 
@@ -74,7 +74,7 @@ export default class Main extends Component {
         draggable: true,
       });
     } catch (error) {
-      toast.error(`🚫 ${error}`, {
+      toast.error(`🚫 ${error.message}`, {
         position: 'top-right',
         autoClose: 4000,
         hideProgressBar: false,

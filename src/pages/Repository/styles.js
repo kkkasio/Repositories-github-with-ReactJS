@@ -72,6 +72,19 @@ export const FilterButton = styled.div`
   margin-top: 25px;
   display: flex;
   justify-content: space-around;
+
+  button {
+    background: #715fc1;
+    border-radius: 4px;
+    border: 0;
+    padding: 15px;
+    color: #fff;
+    font-weight: bold;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 `;
 
 export const IssuesList = styled.ul`
@@ -134,9 +147,35 @@ export const IssuesList = styled.ul`
   }
 `;
 
-export const PaginateButton = styled.div`
+export const PaginateButton = styled.div.attrs(props => ({
+  disabled: props.disabled,
+}))`
   display: flex;
+  align-items: center;
   justify-content: space-around;
+
+  p {
+    font-size: 16px;
+    color: #715fc1;
+    font-weight: bold;
+  }
+
+  button {
+    background: #715fc1;
+    border-radius: 4px;
+    color: #fff;
+    border: 0;
+    font-weight: bold;
+    padding: 15px;
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.35;
+    }
+  }
 `;
 
 export const Error = styled.div`

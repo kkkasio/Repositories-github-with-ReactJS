@@ -29,10 +29,31 @@ export default class Repository extends Component {
     issues: [],
     loading: true,
     error: false,
+    filters: [
+      {
+        state: 'all',
+        label: 'Todas',
+        active: true,
+      },
+
+      {
+        state: 'open',
+        label: 'Abertas',
+        active: false,
+      },
+      {
+        state: 'closed',
+        label: 'Fechadas',
+        active: false,
+      },
+    ],
+    filterIndex: 0,
+    page: 1,
   };
 
   async componentDidMount() {
     const { match } = this.props;
+    const { filters } = this.state;
 
     const repoName = decodeURIComponent(match.params.repository);
 
@@ -41,13 +62,11 @@ export default class Repository extends Component {
         api.get(`/repos/${repoName}`),
         api.get(`/repos/${repoName}/issues`, {
           params: {
-            state: 'open',
+            state: filters.find(filter => filter.active).state,
             per_page: 5,
           },
         }),
       ]);
-
-      console.log(issues);
 
       this.setState({
         repository: repository.data,
@@ -61,8 +80,52 @@ export default class Repository extends Component {
     }
   }
 
+  handleFilterClick = async filterIndex => {
+    await this.setState({ filterIndex, page: 1 });
+    this.loadIssues();
+  };
+
+  loadIssues = async () => {
+    try {
+      const { match } = this.props;
+      const { filters, filterIndex, page } = this.state;
+
+      const repoName = decodeURIComponent(match.params.repository);
+
+      const response = await api.get(`/repos/${repoName}/issues`, {
+        params: {
+          state: filters[filterIndex].state,
+          per_page: 5,
+          page,
+        },
+      });
+
+      this.setState({ issues: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  handlePage = async action => {
+    const { page } = this.state;
+
+    await this.setState({
+      page: action === 'next' ? page + 1 : page - 1,
+    });
+
+    this.loadIssues();
+  };
+
   render() {
-    const { repository, issues, loading, error } = this.state;
+    const {
+      repository,
+      issues,
+      loading,
+      error,
+      filters,
+      filterIndex,
+      page,
+    } = this.state;
 
     if (loading) {
       return (
@@ -102,10 +165,16 @@ export default class Repository extends Component {
           <p>{repository.description}</p>
         </Owner>
 
-        <FilterButton>
-          <button type="button">All</button>
-          <button type="button">Open</button>
-          <button type="button">Closed</button>
+        <FilterButton active={filterIndex}>
+          {filters.map((filter, index) => (
+            <button
+              type="button"
+              key={filter.label}
+              onClick={() => this.handleFilterClick(index)}
+            >
+              {filter.label}
+            </button>
+          ))}
         </FilterButton>
 
         <IssuesList>
@@ -135,8 +204,17 @@ export default class Repository extends Component {
         </IssuesList>
 
         <PaginateButton>
-          <button type="button">Anterior</button>
-          <button type="button">Próxima</button>
+          <button
+            type="button"
+            disabled={page < 2}
+            onClick={() => this.handlePage('back')}
+          >
+            Anterior
+          </button>
+          <p>Página atual: {page}</p>
+          <button type="button" onClick={() => this.handlePage('next')}>
+            Próxima
+          </button>
         </PaginateButton>
       </Container>
     );

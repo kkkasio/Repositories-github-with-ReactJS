@@ -49,7 +49,9 @@ export default class Main extends Component {
       if (newRepo === '') throw new Error('Digite um repositório');
 
       repositories.find(repo => {
-        if (newRepo === repo.name) throw new Error('Repositório duplicado');
+        if (newRepo === repo.name) {
+          throw new Error('Repositório duplicado');
+        }
       });
 
       const response = await api.get(`repos/${newRepo}`);

@@ -43,6 +43,10 @@ export const SubmitButton = styled.button.attrs(props => ({
   margin-left: 10px;
   padding: 0 15px;
 
+  &:hover {
+    opacity: 0.7;
+  }
+
   svg {
     margin: 0px;
   }

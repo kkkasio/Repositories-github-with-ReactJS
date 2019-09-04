@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Open [https://kasio-repositories.herokuapp.com/](https://kasio-repositories.herokuapp.com/)
 
-on Facebook react repository
+Ex: type on input the Facebook react repository
 `facebook/react`
 
-on Vue Repository
+or Vue Repository
 `vuejs/vue`
 
 ## Scripts

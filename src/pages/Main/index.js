@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Form, SubmitButton, List, Empty } from './styles';
+import { Form, SubmitButton, List, Empty, Code } from './styles';
 
 export default class Main extends Component {
   state = {
@@ -135,6 +135,15 @@ export default class Main extends Component {
             <FaBan color="#ff0000" size={16} />
           </Empty>
         )}
+
+        <Code>
+          <a
+            href="https://github.com/kkkasio/Repositories-github-with-ReactJS"
+            target="_blank"
+          >
+            Code is Here!
+          </a>
+        </Code>
       </Container>
     );
   }

@@ -104,3 +104,14 @@ export const Empty = styled.div`
     margin-left: 15px;
   }
 `;
+
+export const Code = styled.div`
+  margin-top: 25px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+  }
+`;

@@ -58,6 +58,7 @@ export default class Main extends Component {
 
       const data = {
         name: response.data.full_name,
+        avatar: response.data.owner.avatar_url,
       };
 
       this.setState({
@@ -106,6 +107,7 @@ export default class Main extends Component {
         <Form onSubmit={this.handleSubmit} error={error ? 1 : 0}>
           <input
             type="text"
+            value={newRepo}
             placeholder="Adicionar Repositório"
             onChange={this.handleInputChange}
           />
@@ -122,7 +124,10 @@ export default class Main extends Component {
           <List>
             {repositories.map(repository => (
               <li key={repository.name}>
-                <span>{repository.name}</span>
+                <div>
+                  <img src={repository.avatar} alt="" />
+                  <span>{repository.name}</span>
+                </div>
                 <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
                   Detalhes
                 </Link>

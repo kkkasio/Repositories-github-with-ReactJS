@@ -83,6 +83,16 @@ export const List = styled.ul`
     }
   }
 
+  div {
+    display: flex;
+    align-items: center;
+    img {
+      width: 35px;
+      height: 35px;
+      margin-right: 15px;
+    }
+  }
+
   a {
     color: #7951c8;
     text-decoration: none;

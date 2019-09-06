@@ -38,6 +38,18 @@ export default class Main extends Component {
     this.setState({ newRepo: e.target.value, error: null });
   };
 
+  handleRemove = async e => {
+    const { repositories } = this.state;
+
+    try {
+      const remove = await repositories.filter(repo => repo.name !== e);
+
+      this.setState({ repositories: remove });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
 
@@ -128,9 +140,19 @@ export default class Main extends Component {
                   <img src={repository.avatar} alt="" />
                   <span>{repository.name}</span>
                 </div>
-                <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
-                  Detalhes
-                </Link>
+                <div className="actions">
+                  <button
+                    type="button"
+                    onClick={() => this.handleRemove(repository.name)}
+                  >
+                    Remover
+                  </button>
+                  <Link
+                    to={`/repository/${encodeURIComponent(repository.name)}`}
+                  >
+                    Detalhes
+                  </Link>
+                </div>
               </li>
             ))}
           </List>

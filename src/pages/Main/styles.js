@@ -93,9 +93,35 @@ export const List = styled.ul`
     }
   }
 
+  .actions {
+    button {
+      background: #715fc1;
+      border-radius: 4px;
+      padding: 10px;
+      margin-right: 10px;
+      color: #fff;
+      border: 0;
+
+      &:hover {
+        opacity: 0.7;
+        background: #ec1f1a;
+        -webkit-transition: all 0.25s ease-in;
+        -moz-transition: all 0.25s ease-in;
+        transition: all 0.25s ease-in;
+      }
+    }
+  }
+
   a {
-    color: #7951c8;
+    color: #fff;
+    border-radius: 4px;
+    padding: 10px;
     text-decoration: none;
+    background: #7951c8;
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 `;
 
